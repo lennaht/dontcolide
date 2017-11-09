@@ -18,23 +18,23 @@ class Player {
         this.speed = speed;
         this.line_positions = [];
         this.hit = false;
-    }
+    } //end of constructor
 
     move(key) {
         //move blue player
         if(this.color == 'blue') {
             switch(key) {
                 case 'w':
-                    this.y += speed;
+                    this.y -= this.speed;
                     break;
                 case 'a':
-                    this.x -= speed;
+                    this.x -= this.speed;
                     break;
                 case 's':
-                    this.y -= speed;
+                    this.y += this.speed;
                     break;
                 case 'd':
-                    this.x += speed;
+                    this.x += this.speed;
             }
         }
 
@@ -42,16 +42,16 @@ class Player {
         if(this.color == 'red') {
             switch(key) {
                 case 'ArrowUp':
-                    this.y += speed;
+                    this.y -= this.speed;
                     break;
                 case 'ArrowLeft':
-                    this.x -= speed;
+                    this.x -= this.speed;
                     break;
                 case 'ArrowDown':
-                    this.y -= speed;
+                    this.y += this.speed;
                     break;
                 case 'ArrowRight':
-                    this.x += speed;
+                    this.x += this.wspeed;
             }
         }
 
@@ -63,17 +63,20 @@ class Player {
         cx.rect(this.x, this.y, 10, 10);
         cx.fillStyle = this.color;
         cx.fill();
-    }
+    } //end move Player.move()
 
-}
+} //end of Player class
 
 //initiate players
-var playerBlue = new Player('blue', Math.floor(cv.width / 10), cv.width - (Math.floor(cv.height / 2)), 3);
-var playerRed = new Player('red', Math.floor(cv.width - (cv.width / 10)), cv.width - (Math.floor(cv.height / 2)), 3);
+var playerBlue = new Player('blue', Math.floor(cv.width / 10), cv.width - (Math.floor(cv.height / 2)), 1);
+var playerRed = new Player('red', cv.width - (Math.floor(cv.width / 10)), cv.width - (Math.floor(cv.height / 2)), 1);
+
+console.log(playerBlue);
+console.log(playerRed);
 
 //last pressed buttons
 var buttonBlue = 'd';
-var buttonRed = 'ArrowRight'
+var buttonRed = 'ArrowLeft'
 
 function play() {
     //check if player hit a line and call winner, get hit -> opponent wins
@@ -94,11 +97,17 @@ function play() {
             }
         });
 
+        //animation
         requestAnimationFrame(play);
-        cv.clearRect(0, 0, cv.width, cv.height);
+        cx.clearRect(0, 0, cv.width, cv.height);
 
+        //move players
         playerBlue.move(buttonBlue);
         playerRed.move(buttonRed);
+
+
     } //end of if...else if...else
     
-}
+} //end of play() function
+
+play();
