@@ -51,7 +51,7 @@ class Player {
                     this.y += this.speed;
                     break;
                 case 'ArrowRight':
-                    this.x += this.wspeed;
+                    this.x += this.speed;
             }
         }
 
@@ -63,7 +63,7 @@ class Player {
         cx.rect(this.x, this.y, 10, 10);
         cx.fillStyle = this.color;
         cx.fill();
-    } //end move Player.move()
+    } //end of Player.move()
 
 } //end of Player class
 
@@ -105,6 +105,42 @@ function play() {
         playerBlue.move(buttonBlue);
         playerRed.move(buttonRed);
 
+        cx.lineWidth = 10;
+        //draw blue line
+        cx.beginPath();
+        var lastPosition_blue = playerBlue.line_positions[playerBlue.line_positions.length-1];
+        cx.moveTo(
+            lastPosition_blue.x,
+            lastPosition_blue.y
+        );
+
+        for(let i=lastPosition_blue; i>=0; i--) {
+            let xBlue = playerBlue.line_positions[i].x;
+            let yBlue = playerBlue.line_positions[i].y;
+            
+            cx.lineTo(xBlue, yBlue);           
+        }
+        
+        cx.strokeStyle = 'blue';
+        cx.stroke();
+
+        //draw red line
+        cx.beginPath();
+        var lastPosition_red = playerRed.line_positions.length - 1;
+        cx.moveTo(
+            playerRed.line_positions[lastPosition_red].x,
+            playerRed.line_positions[lastPosition_red].y
+        );
+        
+        for(let i=lastPosition_red; i>=0; i--) {
+            let xRed = playerRed.line_positions[i].x;
+            let yRed = playerRed.line_positions[i].y;
+            
+            cx.lineTo(xRed, yRed);           
+        }
+        
+        cx.strokeStyle = 'red';
+        cx.stroke();
 
     } //end of if...else if...else
     
