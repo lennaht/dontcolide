@@ -161,8 +161,16 @@ function play() {
             }
         }
 
-        if(playerBlue.x == playerRed.x && playerBlue.y == playerRed.y) {
+        if(playerBlue.x == playerRed.x && playerBlue.y == playerRed.y) { //blue and red hit each other
             alert('Draw!');
+        }
+
+        if(playerBlue.x < 0 || playerBlue.x > cv.width || playerBlue.y < 0 && playerBlue.y > cv.height) { //has blue hit the border?
+            playerBlue.hit = true;
+        }
+
+        if(playerRed.x < 0 || playerRed.x > cv.width || playerRed.y < 0 && playerRed.y > cv.height) { //has red hit the border?
+            playerRed.hit = true;
         }
 
     } //end of if...else if...else
