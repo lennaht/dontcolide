@@ -60,9 +60,10 @@ class Player {
 
         //draw player
         cx.beginPath();
-        cx.rect(this.x, this.y, 10, 10);
-        cx.fillStyle = this.color;
-        cx.fill();
+        //cx.rect(this.x, this.y, 10, 10);
+        //cx.fillStyle = this.color;
+        //cx.fill();
+        fillRectCentered(cx, this.x, this.y, 10, 10);
     } //end of Player.move()
 
 } //end of Player class
@@ -108,10 +109,10 @@ function play() {
         cx.lineWidth = 10;
         //draw blue line
         cx.beginPath();
-        var lastPosition_blue = playerBlue.line_positions[playerBlue.line_positions.length-1];
+        var lastPosition_blue = playerBlue.line_positions.length - 1;
         cx.moveTo(
-            lastPosition_blue.x,
-            lastPosition_blue.y
+            playerBlue.line_positions[lastPosition_blue].x,
+            playerBlue.line_positions[lastPosition_blue].y
         );
 
         for(let i=lastPosition_blue; i>=0; i--) {
@@ -147,3 +148,7 @@ function play() {
 } //end of play() function
 
 play();
+
+function fillRectCentered(context, x, y, width, height) {
+    context.fillRect(x - width / 2, y - height / 2, width, height);
+}
