@@ -1,3 +1,8 @@
+//deactivate console.log()
+console.log = function() {
+    return;
+}
+
 //get canvas and it's context
 const cv = document.querySelector('#cv');
 const cx = cv.getContext('2d');
@@ -85,7 +90,7 @@ function play() {
     } else {
         document.addEventListener('keydown', function(e){
             //store button pressed by blue player (w, a, s, d)
-            if((e.key == 'w' && buttonBlue != 's') || (e.key == 'a' && buttonBlue != 'd') || (e.key == 's' && buttonBlue != 'w') || (e.key == 'd' && buttonBlue != 'aaw')) {
+            if((e.key == 'w' && buttonBlue != 's') || (e.key == 'a' && buttonBlue != 'd') || (e.key == 's' && buttonBlue != 'w') || (e.key == 'd' && buttonBlue != 'a')) {
                 buttonBlue = e.key;
             }
 
