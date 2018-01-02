@@ -65,7 +65,7 @@ class Player {
 
         //draw player
         cx.beginPath();
-        fillRectCentered(cx, this.x, this.y, 10, 10);
+        fillRectCentered(cx, this.x, this.y, 10, 10, this.color);
     } //end of Player.move()
 
 } //end of Player class
@@ -85,8 +85,10 @@ function play() {
     //check if player hit a line and call winner, get hit -> opponent wins
     if(playerBlue.hit === true) {
         alert('Red won!');
+        cancelAnimationFrame(animate);
     } else if(playerRed.hit === true) {
         alert('Blue won!');
+        cancelAnimationFrame(animate);
     } else {
         document.addEventListener('keydown', function(e){
             //store button pressed by blue player (w, a, s, d)
@@ -101,7 +103,7 @@ function play() {
         });
 
         //animation
-        requestAnimationFrame(play);
+        var animate = requestAnimationFrame(play);
         cx.clearRect(0, 0, cv.width, cv.height);
 
         //move players
@@ -146,15 +148,24 @@ function play() {
         cx.stroke();
 
         //check if hit
+        if(playerBlue.x == playerRed.x && playerBlue.y == playerRed.y) { //blue and red hit each other
+            alert('Draw!');
+            cancelAnimationFrame(animate);
+            return;
+        }
+
+
         for(let i=0; i<playerRed.line_positions.length-1; i++) {
             if(playerRed.line_positions[i].x == playerBlue.x && playerRed.line_positions[i].y == playerBlue.y) { //has blue hit red line?
                 playerBlue.hit = true;
+                cancelAnimationFrame(animate);
             }
 
             if(playerRed.line_positions[i].x == playerRed.x && playerRed.line_positions[i].y == playerRed.y) { //has red hit it's own line?
                 playerRed.hit = true;
             }
         }
+
 
         for(let i=0; i<playerBlue.line_positions.length-1; i++) {
             if(playerBlue.line_positions[i].x == playerRed.x && playerBlue.line_positions[i].y == playerRed.y) { //has red hit blue line?
@@ -166,9 +177,6 @@ function play() {
             }
         }
 
-        if(playerBlue.x == playerRed.x && playerBlue.y == playerRed.y) { //blue and red hit each other
-            alert('Draw!');
-        }
 
         if(playerBlue.x < 0 || playerBlue.x > cv.width || playerBlue.y < 0 && playerBlue.y > cv.height) { //has blue hit the border?
             playerBlue.hit = true;
@@ -184,6 +192,7 @@ function play() {
 
 play();
 
-function fillRectCentered(context, x, y, width, height) {
+function fillRectCentered(context, x, y, width, height, color) {
+    context.fillStyle = color;
     context.fillRect(x - width / 2, y - height / 2, width, height);
 }
