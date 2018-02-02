@@ -71,7 +71,7 @@ class Player {
 } //end of Player class
 
 //initiate players
-var playerBlue = new Player('green', Math.floor(cv.width / 10), Math.floor(cv.height / 2), 1);
+var playerBlue = new Player('blue', Math.floor(cv.width / 10), Math.floor(cv.height / 2), 1);
 var playerRed = new Player('red', cv.width - (Math.floor(cv.width / 10)), Math.floor(cv.height / 2), 1);
 
 console.log(playerBlue);
